@@ -16,7 +16,12 @@
 <meta property="og:title" content="Iqbal — En vitenskapelig ressurs · Østens dikter" />
 <meta property="og:description" content="Oversettelse og utlegning av Iqbals «Reconstruction», kilder, koranlesning og sitathjelp — en forskningsressurs på norsk." />
 <meta property="og:url" content="https://iqbalstudy.com/" />
-<meta name="twitter:card" content="summary" />
+<meta property="og:image" content="https://iqbalstudy.com/og-image.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="Iqbal — Østens dikter" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://iqbalstudy.com/og-image.png" />
 <meta name="twitter:title" content="Iqbal — En vitenskapelig ressurs · Østens dikter" />
 <meta name="twitter:description" content="Oversettelse og utlegning av Iqbals «Reconstruction», kilder, koranlesning og sitathjelp — en forskningsressurs på norsk." />
 <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20100%20100'%3E%3Crect%20width='100'%20height='100'%20rx='14'%20fill='%230E1A2B'/%3E%3Ccircle%20cx='50'%20cy='50'%20r='30'%20fill='none'%20stroke='%23C9A24B'%20stroke-width='4'/%3E%3Ccircle%20cx='50'%20cy='50'%20r='10'%20fill='%23C9A24B'/%3E%3Cg%20stroke='%23C9A24B'%20stroke-width='4'%3E%3Cpath%20d='M50%2010V26M50%2074V90M10%2050H26M74%2050H90'/%3E%3C/g%3E%3C/svg%3E" />
@@ -240,6 +245,10 @@ AKTIV ARBEIDSMÅTE — Koranlesning. Framstill hvordan Iqbal leste verset eller 
   .btn.sm{ padding:7px 11px; font-size:11.5px; }
   .modal .note-line{ font-size:12px; color:var(--muted-2); font-style:italic; margin-top:8px; line-height:1.5; }
   .modal .status{ font-size:12.5px; margin-top:8px; color:var(--teal-bright); }
+  .modal .status.ok{ color:#7FD1B9; font-weight:500; }
+  .modal .status.fail{ color:#E9A8A8; }
+  .modal .status.testing{ color:var(--muted); font-style:italic; }
+  .modal a.btn{ text-decoration:none; display:inline-block; }
   .modal a{ color:var(--gold-bright); }
   .modal .close{ margin-top:18px; font-family:var(--body); font-size:13px; letter-spacing:.12em; text-transform:uppercase; color:var(--gold); background:transparent; border:1px solid var(--hair-strong); padding:9px 18px; border-radius:2px; cursor:pointer; }
   .modal .close:hover{ color:var(--ink); background:var(--gold); }
@@ -257,6 +266,16 @@ AKTIV ARBEIDSMÅTE — Koranlesning. Framstill hvordan Iqbal leste verset eller 
   .cit-ta{ width:100%; margin-top:10px; min-height:90px; font-family:var(--body); font-size:13px; color:var(--parchment); background:rgba(255,255,255,.04); border:1px solid var(--hair-strong); border-radius:3px; padding:11px 13px; resize:vertical; }
   .toast{ position:fixed; left:50%; bottom:26px; transform:translateX(-50%) translateY(20px); background:linear-gradient(180deg,var(--night-2),var(--ink)); color:var(--parchment); border:1px solid var(--hair-strong); border-left:3px solid var(--gold); border-radius:4px; padding:13px 20px; font-size:13.5px; max-width:520px; box-shadow:var(--shadow); opacity:0; pointer-events:none; transition:opacity .25s ease, transform .25s ease; z-index:60; }
   .toast.show{ opacity:1; transform:translateX(-50%) translateY(0); }
+  .keybanner{ display:none; align-items:center; gap:12px; flex:0 0 auto; background:linear-gradient(90deg, rgba(46,110,104,.18), rgba(201,162,75,.10)); border-bottom:1px solid var(--hair-strong); padding:11px clamp(20px,5vw,72px); font-size:13.5px; color:var(--parchment); }
+  .keybanner.show{ display:flex; }
+  .keybanner #kb-text{ flex:1 1 auto; line-height:1.45; font-weight:300; }
+  .keybanner .kb-cta{ flex:0 0 auto; font-family:var(--body); font-size:12.5px; letter-spacing:.04em; color:var(--ink); background:linear-gradient(180deg,var(--gold-bright),var(--gold)); border:none; padding:7px 13px; border-radius:3px; cursor:pointer; }
+  .keybanner .kb-cta:hover{ filter:brightness(1.08); }
+  .keybanner .kb-x{ flex:0 0 auto; background:transparent; border:none; color:var(--muted); font-size:21px; line-height:1; cursor:pointer; padding:0 4px; }
+  .keybanner .kb-x:hover{ color:var(--gold-bright); }
+  .sitefoot{ flex:0 0 auto; display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:9px; padding:10px clamp(20px,5vw,72px) 12px; border-top:1px solid var(--hair); font-size:11.5px; color:var(--muted-2); font-weight:300; text-align:center; }
+  .sitefoot .dot{ opacity:.5; }
+  @media (max-width:560px){ .sitefoot{ font-size:10.5px; gap:5px; } .keybanner{ flex-wrap:wrap; font-size:12.5px; } }
   .rail-toggle{ display:none; }
   @media (max-width:980px){ .icon-btn .ib-label{ display:none; } .icon-btn{ padding:8px 9px; } }
   @media (max-width:880px){
@@ -310,6 +329,11 @@ AKTIV ARBEIDSMÅTE — Koranlesning. Framstill hvordan Iqbal leste verset eller 
   </aside>
 
   <main class="main">
+    <div class="keybanner" id="keybanner">
+      <span id="kb-text"></span>
+      <button class="kb-cta" id="kb-cta" onclick="openModal('scrim-settings'); updateSettingsUI();"></button>
+      <button class="kb-x" onclick="dismissKeyBanner()" aria-label="Lukk">&times;</button>
+    </div>
     <div class="stream" id="stream">
       <div class="stream-inner" id="streamInner">
         <div class="opening" id="opening">
@@ -331,6 +355,13 @@ AKTIV ARBEIDSMÅTE — Koranlesning. Framstill hvordan Iqbal leste verset eller 
       </div>
       <p class="hint" id="hint"><b>Enter</b> sender · <b>Shift+Enter</b> gir ny linje · svar genereres og kan inneholde feil — kontrollér alltid mot primærkildene</p>
     </div>
+    <footer class="sitefoot" id="sitefoot">
+      <span id="foot-indep"></span>
+      <span class="dot">·</span>
+      <span id="foot-credit"></span>
+      <span class="dot">·</span>
+      <span id="foot-year">© 2026</span>
+    </footer>
   </main>
 </div>
 
@@ -351,14 +382,17 @@ AKTIV ARBEIDSMÅTE — Koranlesning. Framstill hvordan Iqbal leste verset eller 
     <p class="ms" id="set-ms">Frittstående drift med egen API-nøkkel</p>
     <div class="sec-title" id="set-apiTitle">API-nøkkel</div>
     <p id="set-apiExplain"></p>
+    <p class="note-line" id="set-apiSteps" style="margin-top:0;"></p>
     <div class="field">
       <div class="keyrow">
         <input type="password" id="apiKeyInput" placeholder="sk-ant-..." autocomplete="off" spellcheck="false" />
         <button class="btn ghost sm" id="set-toggleVis" onclick="toggleKeyVisibility()">Vis</button>
       </div>
       <div class="row" style="margin-top:8px;">
-        <button class="btn sm" id="set-saveKey" onclick="saveKeyFromInput()">Lagre nøkkel</button>
+        <button class="btn sm" id="set-saveKey" onclick="saveAndTestKey()">Lagre og test</button>
+        <button class="btn ghost sm" id="set-testKey" onclick="testKey()">Test nøkkel</button>
         <button class="btn ghost sm" id="set-clearKey" onclick="clearKeyFromUi()">Fjern nøkkel</button>
+        <a class="btn ghost sm" id="set-getKey" href="https://console.anthropic.com/settings/keys" target="_blank" rel="noopener">Hent nøkkel ↗</a>
       </div>
       <div class="status" id="set-keyStatus"></div>
       <div class="note-line" id="set-keyNote"></div>
@@ -484,6 +518,9 @@ const STRINGS = {
     settings:{ h:"Innstillinger", ms:"Frittstående drift med egen API-nøkkel", apiTitle:"API-nøkkel",
       apiExplain:'Inne i Claude virker ressursen uten nøkkel. For frittstående drift (filen åpnet i en nettleser, eller hostet ved institusjonen) legger hver bruker inn sin egen Anthropic-nøkkel. Nøkkelen lagres bare i din egen nettleser og sendes bare til Anthropic — aldri til andre. Hent nøkkel på <a href="https://console.anthropic.com/settings/keys" target="_blank" rel="noopener">console.anthropic.com</a>. Bruk av egen nøkkel endrer ingenting ved det faglige prinsippet: svarene skal fortsatt etterprøves mot primærtekstene.',
       saveKey:"Lagre nøkkel", clearKey:"Fjern nøkkel", statusSaved:"Nøkkel lagret i denne nettleseren.", statusNone:"Ingen nøkkel lagret. (Virker inne i Claude.)",
+      saveTest:"Lagre og test", testBtn:"Test nøkkel", getKeyBtn:"Hent nøkkel ↗",
+      steps:"Slik: 1) Hent en nøkkel hos Anthropic. 2) Lim den inn her. 3) Trykk «Lagre og test» — du får straks beskjed om den virker.",
+      testing:"Tester nøkkelen…", testOk:"✓ Nøkkelen virker.", testFail:"✕ Nøkkelen ble avvist.", testNoKey:"Lim inn en nøkkel først.",
       keyNoteMem:"Merk: lagring er ikke tilgjengelig her, så nøkkelen holdes bare i minnet for denne økten. Last ned filen og åpne den lokalt for varig lagring.",
       webTitle:"Nettsøk", webLabel:"Bruk nettsøk for kildekontroll (anbefalt)", webNote:"Lar modellen bekrefte sitater, datoer og versnumre mot levende kilder. Krever en nøkkel/plan med tilgang til serverbasert nettsøk; slå av hvis din nøkkel gir feil.", close:"Lukk" },
     sessions:{ h:"Lagrede økter", ms:"Lagre, åpne eller slett samtaler", save:"Lagre nåværende økt",
@@ -507,6 +544,8 @@ const STRINGS = {
     toastDown:"Forskningsnotatet er lastet ned som HTML.",
     keySaved:"API-nøkkel lagret.", keyCleared:"API-nøkkel fjernet.",
     sessSaved:"Økt lagret.", sessLoaded:"Økt åpnet.", sessDeleted:"Økt slettet.",
+    foot:{ indep:"Uavhengig forskningsressurs · ikke tilknyttet Iqbal Academy Pakistan", credit:"Redaktør og fagansvarlig: Shan Salman Ibrahim Butt", year:"© 2026" },
+    keybanner:{ text:"AI-delen (oversettelse og spørsmål) krever din egen Anthropic-nøkkel. Biblioteket og sitathjelpen virker uten.", cta:"Legg inn nøkkel" },
   },
 
   nn: {
@@ -547,6 +586,9 @@ const STRINGS = {
     settings:{ h:"Innstillingar", ms:"Frittståande drift med eigen API-nøkkel", apiTitle:"API-nøkkel",
       apiExplain:'Inne i Claude verkar ressursen utan nøkkel. For frittståande drift legg kvar brukar inn sin eigen Anthropic-nøkkel. Nøkkelen vert lagra berre i din eigen nettlesar og sendt berre til Anthropic — aldri til andre. Hent nøkkel på <a href="https://console.anthropic.com/settings/keys" target="_blank" rel="noopener">console.anthropic.com</a>. Bruk av eigen nøkkel endrar ikkje det faglege prinsippet: svara skal framleis etterprøvast mot primærtekstane.',
       saveKey:"Lagre nøkkel", clearKey:"Fjern nøkkel", statusSaved:"Nøkkel lagra i denne nettlesaren.", statusNone:"Ingen nøkkel lagra. (Verkar inne i Claude.)",
+      saveTest:"Lagre og test", testBtn:"Test nøkkel", getKeyBtn:"Hent nøkkel ↗",
+      steps:"Slik: 1) Hent ein nøkkel hos Anthropic. 2) Lim han inn her. 3) Trykk «Lagre og test» — du får straks beskjed om han verkar.",
+      testing:"Testar nøkkelen…", testOk:"✓ Nøkkelen verkar.", testFail:"✕ Nøkkelen vart avvist.", testNoKey:"Lim inn ein nøkkel først.",
       keyNoteMem:"Merk: lagring er ikkje tilgjengeleg her, så nøkkelen vert halden berre i minnet for denne økta. Last ned fila og opne henne lokalt for varig lagring.",
       webTitle:"Nettsøk", webLabel:"Bruk nettsøk for kjeldekontroll (tilrådd)", webNote:"Lèt modellen stadfeste sitat, datoar og versnummer mot levande kjelder. Krev ein nøkkel/plan med tilgang til serverbasert nettsøk; slå av om nøkkelen din gir feil.", close:"Lukk" },
     sessions:{ h:"Lagra økter", ms:"Lagre, opne eller slette samtalar", save:"Lagre noverande økt",
@@ -570,6 +612,8 @@ const STRINGS = {
     toastDown:"Forskingsnotatet er lasta ned som HTML.",
     keySaved:"API-nøkkel lagra.", keyCleared:"API-nøkkel fjerna.",
     sessSaved:"Økt lagra.", sessLoaded:"Økt opna.", sessDeleted:"Økt sletta.",
+    foot:{ indep:"Uavhengig forskingsressurs · ikkje tilknytt Iqbal Academy Pakistan", credit:"Redaktør og fagansvarleg: Shan Salman Ibrahim Butt", year:"© 2026" },
+    keybanner:{ text:"AI-delen (omsetjing og spørsmål) krev din eigen Anthropic-nøkkel. Biblioteket og sitathjelpa verkar utan.", cta:"Legg inn nøkkel" },
   },
 
   en: {
@@ -610,6 +654,9 @@ const STRINGS = {
     settings:{ h:"Settings", ms:"Standalone operation with your own API key", apiTitle:"API key",
       apiExplain:'Inside Claude the resource works without a key. For standalone operation (the file opened in a browser, or hosted at your institution) each user enters their own Anthropic key. The key is stored only in your own browser and sent only to Anthropic — never to anyone else. Get a key at <a href="https://console.anthropic.com/settings/keys" target="_blank" rel="noopener">console.anthropic.com</a>. Using your own key changes nothing about the scholarly principle: answers must still be verified against the primary texts.',
       saveKey:"Save key", clearKey:"Remove key", statusSaved:"Key saved in this browser.", statusNone:"No key saved. (Works inside Claude.)",
+      saveTest:"Save & test", testBtn:"Test key", getKeyBtn:"Get a key ↗",
+      steps:"How to: 1) Get a key from Anthropic. 2) Paste it here. 3) Click \"Save & test\" — you'll know at once whether it works.",
+      testing:"Testing the key…", testOk:"✓ The key works.", testFail:"✕ The key was rejected.", testNoKey:"Paste a key first.",
       keyNoteMem:"Note: storage is unavailable here, so the key is held in memory for this session only. Download the file and open it locally for persistent storage.",
       webTitle:"Web search", webLabel:"Use web search for source-checking (recommended)", webNote:"Lets the model confirm quotations, dates, and verse numbers against live sources. Requires a key/plan with access to server-side web search; turn off if your key errors.", close:"Close" },
     sessions:{ h:"Saved sessions", ms:"Save, open, or delete conversations", save:"Save current session",
@@ -633,6 +680,8 @@ const STRINGS = {
     toastDown:"The research note has been downloaded as HTML.",
     keySaved:"API key saved.", keyCleared:"API key removed.",
     sessSaved:"Session saved.", sessLoaded:"Session opened.", sessDeleted:"Session deleted.",
+    foot:{ indep:"Independent research resource · not affiliated with Iqbal Academy Pakistan", credit:"Editor: Shan Salman Ibrahim Butt", year:"© 2026" },
+    keybanner:{ text:"The AI features (translation and questions) require your own Anthropic key. The library and citation helper work without one.", cta:"Add key" },
   },
 };
 let currentLang="nb", currentMode="oversettelse", history=[], busy=false, keyVisible=false;
@@ -667,7 +716,7 @@ function applyStrings(){
   setText("ab-close",s.about.close);
   setText("set-h",s.settings.h); setText("set-ms",s.settings.ms); setText("set-apiTitle",s.settings.apiTitle);
   setHtml("set-apiExplain",s.settings.apiExplain);
-  setText("set-saveKey",s.settings.saveKey); setText("set-clearKey",s.settings.clearKey);
+  setText("set-saveKey",s.settings.saveTest); setText("set-testKey",s.settings.testBtn); setText("set-clearKey",s.settings.clearKey); setText("set-getKey",s.settings.getKeyBtn); setText("set-apiSteps",s.settings.steps);
   setText("set-webTitle",s.settings.webTitle); setText("set-webLabel",s.settings.webLabel); setText("set-webNote",s.settings.webNote);
   setText("set-close",s.settings.close);
   setText("set-toggleVis", keyVisible? s.toggleHide : s.toggleShow);
@@ -675,8 +724,10 @@ function applyStrings(){
   setText("cit-h",s.citation.h); setText("cit-ms",s.citation.ms);
   setText("cit-lWork",s.citation.lWork); setText("cit-lEdition",s.citation.lEdition); setText("cit-lLecture",s.citation.lLecture);
   setText("cit-lPages",s.citation.lPages); setText("cit-lStyle",s.citation.lStyle); setText("cit-copy",s.citation.copy); setText("cit-note",s.citation.note);
+  setText("foot-indep",s.foot.indep); setText("foot-credit",s.foot.credit); setText("foot-year",s.foot.year);
+  setText("kb-text",s.keybanner.text); setText("kb-cta",s.keybanner.cta);
   document.querySelectorAll(".langbtn").forEach(b=>b.classList.toggle("active",b.dataset.lang===currentLang));
-  renderModes(); renderChips(); populateCitationWorks();
+  renderModes(); renderChips(); populateCitationWorks(); maybeShowKeyBanner();
 }
 function setLang(lang){ if(!STRINGS[lang]) return; currentLang=lang; applyStrings(); }
 
@@ -786,14 +837,32 @@ function updateSettingsUI(){
   const input=document.getElementById("apiKeyInput");
   input.value=getKey(); input.type = keyVisible?"text":"password";
   setText("set-toggleVis", keyVisible? s.toggleHide : s.toggleShow);
-  setText("set-keyStatus", getKey()? s.settings.statusSaved : s.settings.statusNone);
+  setKeyStatus("idle", getKey()? s.settings.statusSaved : s.settings.statusNone);
   setText("set-keyNote", store.available? "" : s.settings.keyNoteMem);
   document.getElementById("webSearchToggle").checked=getWebSearch();
 }
-function saveKeyFromInput(){ const v=document.getElementById("apiKeyInput").value.trim(); if(v){ setKey(v); } updateSettingsUI(); showToast(S().keySaved); }
-function clearKeyFromUi(){ clearKey(); document.getElementById("apiKeyInput").value=""; updateSettingsUI(); showToast(S().keyCleared); }
+function saveKeyFromInput(){ const v=document.getElementById("apiKeyInput").value.trim(); if(v){ setKey(v); } updateSettingsUI(); maybeShowKeyBanner(); showToast(S().keySaved); }
+function clearKeyFromUi(){ clearKey(); document.getElementById("apiKeyInput").value=""; updateSettingsUI(); maybeShowKeyBanner(); showToast(S().keyCleared); }
 function toggleKeyVisibility(){ keyVisible=!keyVisible; updateSettingsUI(); }
 function onWebToggle(){ setWebSearch(document.getElementById("webSearchToggle").checked); }
+function setKeyStatus(kind,msg){ const el=document.getElementById("set-keyStatus"); if(!el) return; el.className="status"+(kind&&kind!=="idle"?" "+kind:""); el.textContent=msg; }
+async function testKey(){
+  const key=getKey();
+  if(!key){ setKeyStatus("fail", S().settings.testNoKey); return; }
+  setKeyStatus("testing", S().settings.testing);
+  try{
+    const res=await fetch("https://api.anthropic.com/v1/messages",{ method:"POST", headers:{ "content-type":"application/json","x-api-key":key,"anthropic-version":"2023-06-01","anthropic-dangerous-direct-browser-access":"true" }, body:JSON.stringify({ model:"claude-sonnet-4-6", max_tokens:1, messages:[{role:"user",content:"Hi"}] }) });
+    if(res.ok){ setKeyStatus("ok", S().settings.testOk); }
+    else{ let m=""; try{ const e=await res.json(); m=(e&&e.error&&e.error.message)||""; }catch(_){}; setKeyStatus("fail", S().settings.testFail+(res.status?" ("+res.status+")":"")+(m?" — "+m:"")); }
+  }catch(err){ setKeyStatus("fail", S().settings.testFail+" — "+(err.message||"")); }
+}
+async function saveAndTestKey(){
+  const v=document.getElementById("apiKeyInput").value.trim();
+  if(v){ setKey(v); }
+  document.getElementById("apiKeyInput").value=getKey();
+  maybeShowKeyBanner();
+  if(getKey()){ await testKey(); } else { setKeyStatus("idle", S().settings.statusNone); }
+}
 
 /* ======================= Økter ======================= */
 function titleFromHistory(){ const u=history.find(t=>t.role==="user"); let t=u?u.content.replace(/\s+/g," ").trim():""; if(t.length>64) t=t.slice(0,64)+"…"; return t||S().sessions.untitled; }
@@ -989,6 +1058,9 @@ function autosize(el){ el.style.height="auto"; el.style.height=Math.min(el.scrol
 const inputEl=document.getElementById("input");
 inputEl.addEventListener("input",function(){ autosize(inputEl); });
 inputEl.addEventListener("keydown",function(e){ if(e.key==="Enter"&&!e.shiftKey){ e.preventDefault(); onSend(); } });
+
+function maybeShowKeyBanner(){ const el=document.getElementById("keybanner"); if(!el) return; const show=(!getKey() && store.available && store.get("iqbal.kbdismiss")!=="1"); el.classList.toggle("show", show); }
+function dismissKeyBanner(){ store.set("iqbal.kbdismiss","1"); const el=document.getElementById("keybanner"); if(el) el.classList.remove("show"); }
 
 applyStrings();
 updateExportBtn();
